@@ -1,8 +1,6 @@
 import conf
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
-from sklearn import svm
 
 '''
 First part of the project. Get pictures from the game 
