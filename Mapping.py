@@ -120,10 +120,13 @@ def makeGraph(node_list):
             index0, index1 = findLocation(x, y, axis_x, axis_y)
             graph[index0][index1] = letter[i]
 
+    graph = addGraphEdge(graph, len(axis_x), len(axis_y))
+
     for i in range(len(graph)):
         print(graph[i])
 
     return graph
+
 
 def findLocation(x, y, axis_x, axis_y):
     index0 = -1
@@ -142,6 +145,37 @@ def findLocation(x, y, axis_x, axis_y):
 
     return index0, index1
 
+
+def addGraphEdge(graph, lx, ly):
+    new_graph = []
+
+    for i in range(2 * ly - 1):
+        new_graph.append([])
+        for j in range(2 * lx - 1):
+            new_graph[i].append('@')
+
+    for i in range(ly):
+        for j in range(lx):
+            new_graph[2 * i][2 * j] = graph[i][j]
+            if graph[i][j] == '0':
+                if i > 0 and j > 0:
+                    new_graph[2 * i - 1][2 * j - 1] = '!'
+                if i > 0:
+                    new_graph[2 * i - 1][2 * j] = '!'
+                if i > 0 and j < lx - 1:
+                    new_graph[2 * i - 1][2 * j + 1] = '!'
+                if j > 0:
+                    new_graph[2 * i][2 * j - 1] = '!'
+                if j < lx - 1:
+                    new_graph[2 * i][2 * j + 1] = '!'
+                if i < ly - 1 and j > 0:
+                    new_graph[2 * i + 1][2 * j - 1] = '!'
+                if i < ly - 1:
+                    new_graph[2 * i + 1][2 * j] = '!'
+                if i < ly - 1 and j < lx - 1:
+                    new_graph[2 * i + 1][2 * j + 1] = '!'
+
+    return new_graph
 
 if __name__ == '__main__':
     mapping()
